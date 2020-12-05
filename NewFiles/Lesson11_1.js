@@ -1,31 +1,31 @@
 //объявили все переменные
 let arrItem = [1, 4, 6, "b", 9, 12, "null", 17, 23, null, 0, "0"];
-let numberCount = 0; //счетчик любых чисел и того, что можно привести к числу
-let evenCount = 0; //счетчик четных чисел
-let oddCount = 0; //счетчик нечетных чисел
-let zeroCount = 0; //счетчик нулей
 
 //определили функцию
-function analiseArray()
+function analiseArray(arr)
 {
-    for (let i = 0; i < arrItem.length; i++)
+    let numberCount = 0; //счетчик любых чисел и того, что можно привести к числу
+    let evenCount = 0; //счетчик четных чисел
+    let oddCount = 0; //счетчик нечетных чисел
+    let zeroCount = 0; //счетчик нулей
+    for (let i = 0; i < arr.length; i++)
     {
-        if (arrItem[i] === null || isNaN(arrItem[i]))
+        if (typeof arr[i] !== 'number' || isNaN(arr[i])) // Проверка на числовой формат не совсем правильная. Здесь нужно использовать typeof
         {
-            console.log(arrItem[i] + " is not a number");
+            console.log(arr[i] + " is not a number");
             continue;
         }
 
         //раз прошли первую проверку, перед нами точно число
         numberCount++
 
-        if (arrItem[i] === 0)
+        if (arr[i] === 0)
         {
             zeroCount++;
             continue;
         }
 
-        if (arrItem[i] % 2 === 0)
+        if (arr[i] % 2 === 0)
         {
             evenCount++
         }
@@ -34,12 +34,14 @@ function analiseArray()
             oddCount++
         }
     }
+
+    console.log("Всего чисел" + " " + numberCount);
+    console.log("Всего четных чисел" + " " + evenCount);
+    console.log("Всего нечетных чисел" + " " + oddCount);
+    console.log("Всего нулевых чисел" + " " + zeroCount);
 }
 
 //вызываем функцию
 analiseArray(arrItem);
 
-console.log("Всего чисел" + " " + numberCount);
-console.log("Всего четных чисел" + " " + evenCount);
-console.log("Всего нечетных чисел" + " " + oddCount);
-console.log("Всего нулевых чисел" + " " + zeroCount);
+// Функция определена неверно. Анализируемый массив нужно передавать в качестве аргумента, чтобы функцию можно было переиспользоваться и анализировать различные массивы, не только arrItem. Кроме того, переменные-счетчики (evenCount, oddCount и т.д.) должны быть частью функции, чтобы при каждом новом вызове они обнулялись. Сейчас при повторном вызове функции значения счетчиков останутся прежними, т.е. повторный анализ покажет неверный результат. Выше всё исправила. 
